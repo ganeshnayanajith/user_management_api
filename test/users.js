@@ -13,9 +13,9 @@ describe("users unit tests", () => {
 
     it("create", (done) => {
         const payload = {
-            firstName: "ganesh",
-            lastName: "nayanajith",
-            email: "ganeshnayanajith40@gmail.com",
+            firstName: "test",
+            lastName: "user",
+            email: "testuser@test.com",
             password: "password",
             permissionLevel: "user"
         };

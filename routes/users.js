@@ -6,7 +6,7 @@ const UserHandler = require('../lib/handlers/UserHandler');
 module.exports = (authenticator) => {
     router.post('/', authenticator, async (req, res, next) => {
         try {
-            const loggedAdminId = req.user['id'];
+            const loggedAdminId = req.user['_id'];
             const payload = req.body;
             const result = await UserHandler.create(loggedAdminId, payload);
             res.status(201).send(result);
