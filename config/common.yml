@@ -3,6 +3,9 @@ defaults: &defaults
     port: 3000
     server_base_url: http://localhost:3000
     server_base_path: /api/usermanagementapi
+  jwt:
+    issuer: mdo
+    audience: mdo
   logger:
     name: User Management API
     level: debug
