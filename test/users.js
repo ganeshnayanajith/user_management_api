@@ -3,6 +3,7 @@ const supertest = require("supertest");
 const server = supertest.agent("http://localhost:3000/api/usermanagementapi/users");
 const path = require("path");
 const TokenUtils = require('../lib/TokenUtils');
+const qs = require("qs");
 
 describe("users unit tests", () => {
     let token;
@@ -11,7 +12,7 @@ describe("users unit tests", () => {
         return Promise.resolve();
     });
 
-    it("create", (done) => {
+    /*it("create", (done) => {
         const payload = {
             firstName: "test",
             lastName: "user",
@@ -30,6 +31,37 @@ describe("users unit tests", () => {
                 }
                 done(err);
             });
-    }).timeout(50000);
+    }).timeout(50000);*/
+
+    /*it("get", (done) => {
+        const userId = "e16a6040-ddbb-11eb-a1f4-8d37a6132260";
+        server
+            .get("/" + userId)
+            .set('Authorization', `Bearer ${token}`)
+            .expect(200)
+            .end((err, res) => {
+                if (!err) {
+                    console.log(res.body);
+                }
+                done(err);
+            });
+    }).timeout(50000);*/
+
+    /*it("getAll", (done) => {
+        const query = qs.stringify({
+            skip: 1,
+            limit: 1
+        });
+        server
+            .get("/?" + query)
+            .set('Authorization', `Bearer ${token}`)
+            .expect(200)
+            .end((err, res) => {
+                if (!err) {
+                    console.log(res.body);
+                }
+                done(err);
+            });
+    }).timeout(50000);*/
 
 });
