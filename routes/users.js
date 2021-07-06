@@ -70,5 +70,33 @@ module.exports = (authenticator) => {
         }
     });
 
+    router.put('/:id', authenticator, async (req, res, next) => {
+        try {
+            if (req.params['id']) {
+                const loggedAdminId = req.user['_id'];
+                const userId = req.params['id'];
+                const payload = req.body;
+                const result = await UserHandler.update(loggedAdminId, userId, payload);
+                res.status(200).send(result);
+            } else {
+                return res.status(400).send({
+                    status: 400,
+                    error: 'user id is required'
+                });
+            }
+        } catch (err) {
+            if (err.statusCode) {
+                return res.status(err.statusCode).send({
+                    status: err.statusCode,
+                    error: err.message
+                });
+            }
+            return res.status(500).send({
+                status: 500,
+                error: 'Server Error'
+            });
+        }
+    });
+
     return router;
 };

@@ -64,4 +64,27 @@ describe("users unit tests", () => {
             });
     }).timeout(50000);*/
 
+    /*it("update", (done) => {
+
+        const userId = "e16a6040-ddbb-11eb-a1f4-8d37a6132260";
+
+        const payload = {
+            firstName: "test updated",
+            lastName: "user updated",
+            password: "password_updated"
+        };
+
+        server
+            .put("/" + userId)
+            .set('Authorization', `Bearer ${token}`)
+            .send(payload)
+            .expect(200)
+            .end((err, res) => {
+                if (!err) {
+                    console.log(res.body);
+                }
+                done(err);
+            });
+    }).timeout(50000);*/
+
 });
