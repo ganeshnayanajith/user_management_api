@@ -18,12 +18,13 @@ require('./lib/security/authenticator')(passport, {
     audience: config.jwt.audience
 });
 
-const authenticator = passport.authenticate('jwt', {session: false});
+const authenticator = passport.authenticate('jwt', { session: false });
 
 const BASE_PATH = config.api.server_base_path;
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const tokensRouter = require('./routes/tokens');
 
 const app = express();
 
@@ -45,6 +46,7 @@ app.use(async (req, res, next) => {
 
 app.use(`${BASE_PATH}/`, indexRouter);
 app.use(`${BASE_PATH}/users`, usersRouter(authenticator));
+app.use(`${BASE_PATH}/tokens`, tokensRouter());
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
