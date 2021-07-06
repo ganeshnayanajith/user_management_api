@@ -34,7 +34,7 @@ describe("users unit tests", () => {
     }).timeout(50000);*/
 
     /*it("get", (done) => {
-        const userId = "e16a6040-ddbb-11eb-a1f4-8d37a6132260";
+        const userId = "359a1ee0-de8d-11eb-9036-dd313e465e9c";
         server
             .get("/" + userId)
             .set('Authorization', `Bearer ${token}`)
@@ -66,7 +66,7 @@ describe("users unit tests", () => {
 
     /*it("update", (done) => {
 
-        const userId = "6ee8bf20-de02-11eb-87ef-7f507566c9e7";
+        const userId = "359a1ee0-de8d-11eb-9036-dd313e465e9c";
 
         const payload = {
             firstName: "test updated",
@@ -89,7 +89,7 @@ describe("users unit tests", () => {
 
     /*it("delete", (done) => {
 
-        const userId = "6ee8bf20-de02-11eb-87ef-7f507566c9e7";
+        const userId = "359a1ee0-de8d-11eb-9036-dd313e465e9c";
 
         server
             .delete("/" + userId)

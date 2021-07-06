@@ -7,9 +7,9 @@ describe("tokens unit tests", () => {
     before(async () => {
     });
 
-    it("generate a token", (done) => {
+    it("generateToken", (done) => {
         const payload = {
-            email: "testuser@test.com",
+            email: "keeneyesolutions@gmail.com",
             password: "password"
         };
         server

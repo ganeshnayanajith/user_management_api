@@ -1,15 +1,13 @@
 'use strict';
 const express = require('express');
 const router = express.Router();
-const TokenUtils = require('../lib/TokenUtils');
-const TokenValidator = require('../lib/validators/TokenValidator');
+const TokenHandler = require('../lib/handlers/TokenHandler');
 
 module.exports = () => {
     router.post('/', async (req, res, next) => {
         try {
-            const payload = await TokenValidator.isValidGet(req.body);
-            const token = await TokenUtils.generateToken(payload);
-            res.status(200).send({ token });
+            const result = await TokenHandler.generateToken(req.body);
+            res.status(200).send(result);
         } catch (err) {
             if (err.statusCode) {
                 return res.status(err.statusCode).send({
