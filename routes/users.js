@@ -98,5 +98,31 @@ module.exports = (authenticator) => {
         }
     });
 
+    router.delete('/:id', authenticator, async (req, res, next) => {
+        try {
+            if (req.params['id']) {
+                const userId = req.params['id'];
+                const result = await UserHandler.delete(userId);
+                res.status(200).send(result);
+            } else {
+                return res.status(400).send({
+                    status: 400,
+                    error: 'user id is required'
+                });
+            }
+        } catch (err) {
+            if (err.statusCode) {
+                return res.status(err.statusCode).send({
+                    status: err.statusCode,
+                    error: err.message
+                });
+            }
+            return res.status(500).send({
+                status: 500,
+                error: 'Server Error'
+            });
+        }
+    });
+
     return router;
 };

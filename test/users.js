@@ -66,7 +66,7 @@ describe("users unit tests", () => {
 
     /*it("update", (done) => {
 
-        const userId = "e16a6040-ddbb-11eb-a1f4-8d37a6132260";
+        const userId = "6ee8bf20-de02-11eb-87ef-7f507566c9e7";
 
         const payload = {
             firstName: "test updated",
@@ -78,6 +78,22 @@ describe("users unit tests", () => {
             .put("/" + userId)
             .set('Authorization', `Bearer ${token}`)
             .send(payload)
+            .expect(200)
+            .end((err, res) => {
+                if (!err) {
+                    console.log(res.body);
+                }
+                done(err);
+            });
+    }).timeout(50000);*/
+
+    /*it("delete", (done) => {
+
+        const userId = "6ee8bf20-de02-11eb-87ef-7f507566c9e7";
+
+        server
+            .delete("/" + userId)
+            .set('Authorization', `Bearer ${token}`)
             .expect(200)
             .end((err, res) => {
                 if (!err) {
