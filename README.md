@@ -35,3 +35,8 @@ Following will be the project base URL when run locally.
 You can find the API docs using following URL.
 
 `` http://localhost:3000/api/usermanagementapi/docs ``
+
+**In the case of API docs are not running, change the path as following in the swagger.js file located in the lib
+folder.**
+
+`` apis: ["./routes/*.js"], ``

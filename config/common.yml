@@ -6,6 +6,8 @@ defaults: &defaults
   jwt:
     issuer: mdo
     audience: mdo
+  swagger:
+    server: http://localhost:3000/api/usermanagementapi
   logger:
     name: User Management API
     level: debug

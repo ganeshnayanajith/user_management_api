@@ -5,6 +5,10 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const loggerMorgan = require('morgan');
 const passport = require('passport');
+const swaggerJsdoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
+const swaggerOptions = require('./lib/swagger').getOptions();
+const specs = swaggerJsdoc(swaggerOptions);
 
 const logger = require('./lib/logger');
 const config = require('./lib/config');
@@ -45,6 +49,7 @@ app.use(async (req, res, next) => {
 });
 
 app.use(`${BASE_PATH}/`, indexRouter);
+app.use(`${BASE_PATH}/docs`, swaggerUi.serve, (...args) => swaggerUi.setup(specs)(...args));
 app.use(`${BASE_PATH}/users`, usersRouter(authenticator));
 app.use(`${BASE_PATH}/tokens`, tokensRouter());
 
