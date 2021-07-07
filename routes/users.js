@@ -3,9 +3,10 @@ const express = require('express');
 const router = express.Router();
 const UserHandler = require('../lib/handlers/UserHandler');
 const UserValidator = require('../lib/validators/UserValidator');
+const authorizer = require('../lib/security/authorizer');
 
 module.exports = (authenticator) => {
-    router.post('/', authenticator, async (req, res, next) => {
+    router.post('/', authenticator, authorizer(['admin']), async (req, res, next) => {
         try {
             const loggedAdminId = req.user['_id'];
             const payload = req.body;
@@ -25,7 +26,7 @@ module.exports = (authenticator) => {
         }
     });
 
-    router.get('/:id', authenticator, async (req, res, next) => {
+    router.get('/:id', authenticator, authorizer(['admin']), async (req, res, next) => {
         try {
             if (req.params['id']) {
                 const userId = req.params['id'];
@@ -51,7 +52,7 @@ module.exports = (authenticator) => {
         }
     });
 
-    router.get('/', authenticator, async (req, res, next) => {
+    router.get('/', authenticator, authorizer(['admin']), async (req, res, next) => {
         try {
             const validatedObj = await UserValidator.isValidGet(req.query);
             const result = await UserHandler.getAll(validatedObj.skip, validatedObj.limit);
@@ -70,7 +71,7 @@ module.exports = (authenticator) => {
         }
     });
 
-    router.put('/:id', authenticator, async (req, res, next) => {
+    router.put('/:id', authenticator, authorizer(['admin']), async (req, res, next) => {
         try {
             if (req.params['id']) {
                 const loggedAdminId = req.user['_id'];
@@ -98,7 +99,7 @@ module.exports = (authenticator) => {
         }
     });
 
-    router.delete('/:id', authenticator, async (req, res, next) => {
+    router.delete('/:id', authenticator, authorizer(['admin']), async (req, res, next) => {
         try {
             if (req.params['id']) {
                 const userId = req.params['id'];

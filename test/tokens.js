@@ -7,6 +7,10 @@ describe("tokens unit tests", () => {
     before(async () => {
     });
 
+    /*
+    * this is a mocha test case for generate a token using token generation endpoint
+    * */
+
     it("generateToken", (done) => {
         const payload = {
             email: "keeneyesolutions@gmail.com",

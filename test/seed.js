@@ -1,3 +1,6 @@
+/*
+ *This is a initial script file for create the first admin user
+ * */
 'use strict';
 const path = require('path');
 require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
