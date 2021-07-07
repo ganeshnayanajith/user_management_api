@@ -5,7 +5,77 @@ const UserHandler = require('../lib/handlers/UserHandler');
 const UserValidator = require('../lib/validators/UserValidator');
 const authorizer = require('../lib/security/authorizer');
 
+/**
+ *  @openapi
+ *
+ * definitions:
+ *      UserResponse:
+ *          type: object
+ *          properties:
+ *              _id:
+ *                  type: string
+ *              firstName:
+ *                  type: string
+ *              lastName:
+ *                  type: string
+ *              email:
+ *                  type: string
+ *              password:
+ *                  type: string
+ *              permissionLevel:
+ *                  type: string
+ *              createdBy:
+ *                  type: string
+ *              updatedBy:
+ *                  type: string
+ *              createdOn:
+ *                  type: string
+ *              updatedOn:
+ *                  type: string
+ *
+ */
 module.exports = (authenticator) => {
+    /**
+     * @openapi
+     *
+     * /users:
+     *      post:
+     *          produces:
+     *              - application/json
+     *          tags:
+     *              - Users
+     *          requestBody:
+     *              content:
+     *                  application/json:
+     *                      schema:
+     *                          type: object
+     *                          properties:
+     *                              firstName:
+     *                                  type: string
+     *                              lastName:
+     *                                  type: string
+     *                              email:
+     *                                  type: string
+     *                              password:
+     *                                  type: string
+     *                              permissionLevel:
+     *                                  type: string
+     *          security:
+     *              - Token: []
+     *          responses:
+     *              201:
+     *                  description: Create a user
+     *                  content:
+     *                      application/json:
+     *                          schema:
+     *                              type: object
+     *                              properties:
+     *                                  message:
+     *                                      type: string
+     *                                  data:
+     *                                      $ref: '#/definitions/UserResponse'
+     *
+     */
     router.post('/', authenticator, authorizer(['admin']), async (req, res, next) => {
         try {
             const loggedAdminId = req.user['_id'];
@@ -26,6 +96,31 @@ module.exports = (authenticator) => {
         }
     });
 
+    /**
+     * @openapi
+     *
+     * /users/{id}:
+     *      get:
+     *          produces:
+     *              - application/json
+     *          tags:
+     *              - Users
+     *          parameters:
+     *              - name: id
+     *                type: string
+     *                in: path
+     *                required: true
+     *          security:
+     *              - Token: []
+     *          responses:
+     *              200:
+     *                  description: Get a user by Id
+     *                  content:
+     *                      application/json:
+     *                          schema:
+     *                              $ref: '#/definitions/UserResponse'
+     *
+     */
     router.get('/:id', authenticator, authorizer(['admin']), async (req, res, next) => {
         try {
             if (req.params['id']) {
@@ -52,6 +147,35 @@ module.exports = (authenticator) => {
         }
     });
 
+    /**
+     * @openapi
+     *
+     * /users:
+     *      get:
+     *          produces:
+     *              - application/json
+     *          tags:
+     *              - Users
+     *          parameters:
+     *              - name: skip
+     *                type: number
+     *                in: query
+     *              - name: limit
+     *                type: number
+     *                in: query
+     *          security:
+     *              - Token: []
+     *          responses:
+     *              200:
+     *                  description: Get users
+     *                  content:
+     *                      application/json:
+     *                          schema:
+     *                              type: array
+     *                              items:
+     *                                  $ref: '#/definitions/UserResponse'
+     *
+     */
     router.get('/', authenticator, authorizer(['admin']), async (req, res, next) => {
         try {
             const validatedObj = await UserValidator.isValidGet(req.query);
@@ -71,6 +195,48 @@ module.exports = (authenticator) => {
         }
     });
 
+    /**
+     * @openapi
+     *
+     * /users/{id}:
+     *      put:
+     *          produces:
+     *              - application/json
+     *          tags:
+     *              - Users
+     *          parameters:
+     *              - name: id
+     *                type: string
+     *                in: path
+     *                required: true
+     *          requestBody:
+     *              content:
+     *                  application/json:
+     *                      schema:
+     *                          type: object
+     *                          properties:
+     *                              firstName:
+     *                                  type: string
+     *                              lastName:
+     *                                  type: string
+     *                              password:
+     *                                  type: string
+     *          security:
+     *              - Token: []
+     *          responses:
+     *              200:
+     *                  description: Update a user
+     *                  content:
+     *                      application/json:
+     *                          schema:
+     *                              type: object
+     *                              properties:
+     *                                  message:
+     *                                      type: string
+     *                                  data:
+     *                                      $ref: '#/definitions/UserResponse'
+     *
+     */
     router.put('/:id', authenticator, authorizer(['admin']), async (req, res, next) => {
         try {
             if (req.params['id']) {
@@ -99,6 +265,36 @@ module.exports = (authenticator) => {
         }
     });
 
+    /**
+     * @openapi
+     *
+     * /users/{id}:
+     *      delete:
+     *          produces:
+     *              - application/json
+     *          tags:
+     *              - Users
+     *          parameters:
+     *              - name: id
+     *                type: string
+     *                in: path
+     *                required: true
+     *          security:
+     *              - Token: []
+     *          responses:
+     *              200:
+     *                  description: Delete a user
+     *                  content:
+     *                      application/json:
+     *                          schema:
+     *                              type: object
+     *                              properties:
+     *                                  message:
+     *                                      type: string
+     *                                  data:
+     *                                      $ref: '#/definitions/UserResponse'
+     *
+     */
     router.delete('/:id', authenticator, authorizer(['admin']), async (req, res, next) => {
         try {
             if (req.params['id']) {
